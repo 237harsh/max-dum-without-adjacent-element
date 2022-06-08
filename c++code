@@ -1,0 +1,40 @@
+////memoization
+int sum(int id,int arr[],vector<int>&dp)
+{
+    if(id==0)return arr[0];
+    if(id<0)return 0;
+    if(dp[id]!=-1)return dp[id];
+    int take=arr[id]+sum(id-2,arr,dp);
+    int ntake=sum(id-1,arr,dp);
+    return dp[id]=max(take,ntake);
+}
+	int findMaxSum(int arr[], int n) {
+	     vector<int>dp(n+1,-1);
+	     
+	     //tabulation method
+	    // return sum(n-1,arr,dp);
+	     
+	   /*  dp[0]=arr[0];
+	     for(int i=1;i<n;i++)
+	     {
+	         int take=arr[i];
+	         if(i>1)take=take+dp[i-2];
+	         int ntake=dp[i-1];
+	         dp[i]=max(take,ntake);
+	     }
+	     return dp[n-1];*/
+	     ///space optimization;
+	     if(n==1)return arr[0];
+	     int prev2=0,prev1=arr[0],curr1,curr2,curr;
+	     for(int i=1;i<n;i++)
+	     {
+	         curr1=arr[i]+prev2;
+	         curr2=prev1;
+	         curr=max(curr1,curr2);
+	         prev2=prev1;
+	         prev1=curr;
+	     }
+	  return curr;
+	}
+	
+};
